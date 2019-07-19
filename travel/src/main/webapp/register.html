@@ -7,6 +7,116 @@
         <link rel="stylesheet" href="css/register.css">
 		<!--导入jquery-->
 		<script src="js/jquery-3.3.1.js"></script>
+		<script>
+			/*
+			* 表单校验
+			*  1.用户名：单词字符，长度8到12位
+			*  2. 密码：单词字符，长度8到20位
+			*  3. email:邮件格式
+			*  4. 姓名：非空
+			*  5. 手机号：手机号格式
+			*  6. 出生日期：非空
+			*  7. 验证码：非空
+			* */
+			//校验用户名
+			function checkUsername() {
+					//1.获取用户名的值
+					var username = $("#username").val();
+					//2.定义正则
+					var reg_username=/^\w{8,20}$/;
+					//3.判断，给出提示信息
+					var flag = reg_username.test(username);
+					if(flag){
+						//用户名合法
+						$("#username").css("border","");
+					}else {
+						//用户名非法，加一个红色边框
+						$("#username").css("border","1px solid red");
+					}
+					return flag;
+			}
+			//校验密码
+			function checkPassword() {
+				//1.获取用户名的值
+				var password = $("#password").val();
+				//2.定义正则
+				var reg_password=/^\w{8,20}$/;
+				//3.判断，给出提示信息
+				var flag = reg_password.test(password);
+				if(flag){
+					//用户名合法
+					$("#password").css("border","");
+				}else {
+					//用户名非法,加一个红色边框
+					$("#password").css("border","1px solid red");
+				}
+				return flag;
+			}
+			//校验邮箱
+			function checkEmail(){
+				//1.获取邮箱的值
+				var email = $("#email").val();
+				//2.定义正则
+				var reg_email=/^\w+@\w+\.\w+$/;
+				//3.判断，给出提示信息
+				var flag = reg_email.test(email);
+				if(flag){
+					//邮箱合法
+					$("#email").css("border","");
+				}else {
+					//邮箱非法,加一个红色边框
+					$("#email").css("border","1px solid red");
+				}
+				return flag;
+			}
+			//姓名校验
+			function checkName(){
+				//1.获取姓名
+				var name = $("#name").val();
+				//2.定义正则
+				var reg_name=/^\w+$/;
+				//3.判断，给出提示信息
+				var flag = reg_name.test(name);
+				if(flag){
+					$("#name").css("border","");
+				}else{
+					$("#name").css("border","1px solid red");
+				}
+				return flag;
+			}
+			//电话号码检验
+			function checkTelephone(){
+				//1.获取电话号码
+				var telephone = $("#telephone").val();
+				//2.定义正则
+				var reg_telephone=/^\w+$/;
+				//3.判断，给出提示信息
+				var flag = reg_telephone.test(telephone);
+				if(flag){
+					$("#telephone").css("border","");
+				}else{
+					$("#telephone").css("border","1px solid red");
+				}
+				return flag;
+			}
+
+			$(function () {
+			  	//当表单提交时，调用所有的校验方法
+				$("#registerForm").submit(function () {
+					return checkUsername()&&checkPassword()&&checkEmail()&&checkName()&&checkTelephone();
+				});
+
+				//当某一个组件失去焦点，调用对应的校验方法
+				$("#username").blur(checkUsername);
+				$("#password").blur(checkPassword);
+				$("#email").blur(checkEmail);
+				$("#name").blur(checkName);
+				$("#telephone").blur(checkTelephone);
+
+			});
+
+
+		</script>
     </head>
 	<body>
 	<!--引入头部-->
@@ -21,7 +131,7 @@
     			<div class="rg_form_center">
 					
 					<!--注册表单-->
-    				<form id="registerForm">
+    				<form id="registerForm" action="register">
 						<!--提交处理请求的标识符-->
 						<input type="hidden" name="action" value="register">
     					<table style="margin-top: 25px;">
@@ -82,6 +192,7 @@
     								<input type="date" id="birthday" name="birthday" placeholder="年/月/日">
     							</td>
     						</tr>
+
     						<tr>
     							<td class="td_left">
     								<label for="check">验证码</label>
