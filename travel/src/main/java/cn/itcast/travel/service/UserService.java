@@ -10,4 +10,5 @@ public interface UserService {
      */
     boolean regist(User user);
 
+    boolean active(String code);
 }
