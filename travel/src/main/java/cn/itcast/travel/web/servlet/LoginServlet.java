@@ -49,6 +49,8 @@ public class LoginServlet extends HttpServlet {
         //6.判断登录成功
         if (u != null && "Y".equals(u.getStatus())) {
             //登录成功
+            //将用户信息放入到session中，便于记录用户信息
+            request.getSession().setAttribute("user",u);
             info.setFlag(true);
         }
         //响应数据
